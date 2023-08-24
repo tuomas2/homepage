@@ -35,6 +35,11 @@ header h3 {
   color: var(--highlight-text-color);
 }
 
+h3 {
+  font-size: 11pt;
+
+}
+
 .container h3 {
   color: var(--highlight-text-color);
   padding-bottom: 0;
@@ -55,15 +60,20 @@ footer {
   background-color: var(--highlight-background-color);
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
   padding: 10px;
-  font-size: 90%;
+  font-size: 80%;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   header h1 {
-    font-size: 20px;
+    font-size: 16pt;
   }
-
-  /* Adjust other styles as needed for smaller screens */
+  header img {
+    max-width: 150px;
+  }
+  .container {
+    margin: 10px;
+  }
 }
