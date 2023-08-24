@@ -1,0 +1,37 @@
+/* Reset some default styles for consistency */
+body, html {
+  margin: 0;
+  padding: 20px;
+}
+
+/* Set a white background and black text color */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Center the content on the page */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
+/* Add some spacing to elements */
+p, ul, ol {
+  margin-bottom: 20px;
+}
+
+/* Add a simple border to images */
+img {
+  border: 1px solid black;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Add responsive design for smaller screens */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+}

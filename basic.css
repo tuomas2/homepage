@@ -1,0 +1,49 @@
+@media print {
+  .noprint { display: none; }
+}
+
+BODY { background : black none;
+          color : white; 
+	margin-left:1.5em;
+	margin-right:0.7em;
+    font-family: arial;
+    font-size: 90%;
+    }
+
+A:link, strong a:link, em a:link, cite a:link,
+ a:link strong, a:link em, a:link cite
+ { color : #95c365; background : transparent none; }
+
+A:visited, strong a:visited, em a:visited, cite a:visited,
+ a:visited strong, a:visited em, a:visited cite
+ { color : #8ad194; background : transparent none; }
+A:hover, strong a:hover, em a:hover, cite a:hover,
+ a:hover strong, a:hover em, a:hover cite
+ { color : #84e3ff; background : transparent none; }
+
+A:active, strong a:active, em a:active, cite a:active,
+ a:active strong, a:active em, a:active cite
+ { color : red; }
+
+h1, h2, h3, h4 { background : transparent none; bold; color: #79a83f;}
+  
+H1              { font-size: 150%; }
+H2              { font-size: 130%; } /* margin-left : 1em ;}*/
+H3              { font-size: 110%; } /*margin-left: 1em;} */
+H4              { font-size: 100%; bold; italic; }
+
+blockquote H1              { font-size: 150%; }
+blockquote H2              { font-size: 130%; }
+blockquote H3              { font-size: 110%; }
+blockquote H4              { font-size: 100%; color: green; italic }
+
+P {  font-size: 110%; color: white; background:black none ;margin-right: 5%; margin-left:0.9em;}
+table {  font-size: 110%; color: white; background:black none ;margin-right: 5%; margin-left:0.9em; width: 95%;}
+div.P {  font-size: 110%; color: white; background:black none ;margin-right: 5%; margin-left:0.9em;}
+/*div.linkbar */
+/*
+div.picheader 
+{
+	margin-left:0.7em;
+}
+*/
