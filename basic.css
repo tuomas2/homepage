@@ -10,6 +10,10 @@ BODY { background : black none;
     font-size: 90%;
     }
 
+img.naama {
+    height: 400px;
+}
+
 A:link, strong a:link, em a:link, cite a:link,
  a:link strong, a:link em, a:link cite
  { color : #95c365; background : transparent none; }
