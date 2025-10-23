@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vuokrataan Kaksio - Ahde 1 B, Kuokkala, Jyväskylä</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header .address {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+
+        .price-tag {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 20px 40px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .price-tag .price {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .price-tag .period {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .gallery-container {
+            position: relative;
+            padding: 40px 0;
+            overflow: hidden;
+        }
+
+        .gallery {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px 0;
+            scrollbar-width: thin;
+            scrollbar-color: #667eea #f8f9fa;
+        }
+
+        .gallery::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .gallery::-webkit-scrollbar-track {
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .gallery::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .gallery::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        .gallery img {
+            flex: 0 0 400px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            transition: background 0.3s ease;
+        }
+
+        .gallery-nav:hover {
+            background: rgba(102, 126, 234, 0.9);
+            color: white;
+        }
+
+        .gallery-nav.prev {
+            left: 20px;
+        }
+
+        .gallery-nav.next {
+            right: 20px;
+        }
+
+        .section {
+            background: white;
+            margin: 30px 0;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+            color: #764ba2;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-item .label {
+            font-weight: 600;
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-item .value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin: 20px 0;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+        }
+
+        .highlight-box h3 {
+            margin-top: 0;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 50px 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .contact-section h2 {
+            color: white;
+            border: none;
+            margin-bottom: 20px;
+        }
+
+        .contact-section p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .price-tag .price {
+                font-size: 2.2rem;
+            }
+
+            .gallery img {
+                flex: 0 0 300px;
+                height: 250px;
+            }
+
+            .gallery-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .gallery-nav.prev {
+                left: 10px;
+            }
+
+            .gallery-nav.next {
+                right: 10px;
+            }
+
+            .lightbox-nav {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+
+            .lightbox-nav.prev {
+                left: 15px;
+            }
+
+            .lightbox-nav.next {
+                right: 15px;
+            }
+
+            .lightbox-close {
+                top: 15px;
+                right: 20px;
+                font-size: 32px;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 85%;
+            max-height: 85%;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+            transition: transform 0.2s;
+        }
+
+        .lightbox-close:hover {
+            transform: scale(1.2);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-nav.prev {
+            left: 30px;
+        }
+
+        .lightbox-nav.next {
+            right: 30px;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Vuokrataan Kaksio</h1>
+            <p class="address">Ahde 1 B, 40520 Jyväskylä, Kuokkala</p>
+            <div class="price-tag">
+                <div class="price">700 €</div>
+                <div class="period">/kuukausi</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="gallery-container">
+            <button class="gallery-nav prev" onclick="scrollGallery(-1)" aria-label="Edellinen kuva">‹</button>
+            <button class="gallery-nav next" onclick="scrollGallery(1)" aria-label="Seuraava kuva">›</button>
+            <div class="gallery" id="gallery">
+                <img src="images/kuva-0.jpg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(1).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(2).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(3).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(4).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(5).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(6).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(7).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(8).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(9).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(10).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(11).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(12).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(13).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(14).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(15).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(16).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(17).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(18).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(19).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(20).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(21).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+                <img src="images/ORIGINAL(22).jpeg" alt="Asunnon kuva" onclick="openLightbox(this.src)">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Asunnon Tiedot</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="label">Tyyppi</div>
+                    <div class="value">Kaksio (2h+k+s+p)</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">Pinta-ala</div>
+                    <div class="value">53,5 m²</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">Kerros</div>
+                    <div class="value">3/3 (ylin)</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">Rakennusvuosi</div>
+                    <div class="value">1986</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">Vuokra</div>
+                    <div class="value">700 €/kk</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">Vapautuu</div>
+                    <div class="value">Heti</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Kuvaus</h2>
+            <div class="description">
+                <p>
+                    Asunto on juuri pintaremontoitu ja odottaa uutta asukastaan. Ylimmän kerroksen huoneistosta
+                    avautuu näkymät kolmeen ilmansuuntaan, mikä tuo tilaan runsaasti luonnonvaloa ja viihtyisän tunnelman.
+                    Lasitetulle parvekkeelle pääsee nauttimaan rauhasta, sillä se avautuu rakennuksen hiljaiselle sisäpihalle.
+                </p>
+                <p>
+                    Kylpyhuoneen peruskorjaus on tehty vuonna 2020, joten märkätilat ovat modernit ja kunnossa.
+                </p>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Erinomainen sijainti opiskelijalle</h3>
+                <p>
+                    Huoneisto soveltuu erinomaisesti opiskelijalle tai opiskelijapariskunnalle
+                    Julkiset kulkuyhteydet ja hyvin hoidetut pyöräreitit toimivat hyvin sekä kaupungin keskustaan
+                    että eri oppilaitoksiin, mikä tekee arjesta sujuvaa ilman omaa autoa.
+                </p>
+            </div>
+
+            <h3>Tilat ja varustelu</h3>
+            <ul class="feature-list">
+                <li>Keittiö: parketti lattia, maali seinät</li>
+                <li>Jääkaappipakastin, keraaminen liesi, liesituuletin</li>
+                <li>Astianpesukone ja kaapistot</li>
+                <li>Olohuone: parketti lattia, maali seinät</li>
+                <li>Makuuhuone: laminaattilattia, tapetti seinät</li>
+                <li>Sauna: laattalattia, paneeliseinät, sähkökiuas</li>
+                <li>Kylpyhuone: laatoitettu, suihku, peilikaappi, pesukoneliitäntä</li>
+                <li>Eteinen: parkettilattia, maaliseinät</li>
+                <li>Kellarikomero</li>
+                <li>Lasitettu parveke sisäpihalle</li>
+            </ul>
+
+            <h3>Taloyhtiö</h3>
+            <ul class="feature-list">
+                <li>Asunto Oy Pohjanahde</li>
+                <li>Talopesula ja mankeli</li>
+                <li>Kellarikomerot</li>
+                <li>Urheiluvälinevarasto</li>
+                <li>Nimikoidut autopaikat (autopaikka lisämaksusta 6 €/kk)</li>
+                <li>Kaapeli-TV ja tietoliikenneyhteys</li>
+                <li>Kaukolämpö</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Sijainti ja Palvelut</h2>
+
+            <div class="highlight-box">
+                <h3>Rauhallinen ja keskeinen</h3>
+                <p>
+                    Kerrostalo sijaitsee omalla tontillaan tien päädyssä, joten läpikulkuliikenne puuttuu täysin.
+                    Alue on rauhallinen, mutta silti lähellä kaikkia palveluita. Taloyhtiössä on käytössä
+                    huoneistokohtaiset nimetyt autopaikat, joten paikkaa ei tarvitse jonottaa.
+                </p>
+            </div>
+
+            <h3>Lähipalvelut</h3>
+            <ul class="feature-list">
+                <li>K-Market Kekkolantie: 240 m</li>
+                <li>Kuokkalan Graniitti: 350 m</li>
+                <li>Yrttisuon liikuntapuisto: n. 550 m</li>
+                <li>Pohjanlammen koirapuisto: 350 m</li>
+                <li>Tikan uimaranta: 1 km</li>
+                <li>Kuokkalan keskusta (S-market, K-Supermarket, pizzeria, kahvila, kirkko): 1 km</li>
+            </ul>
+
+            <h3>Koulut ja oppilaitokset</h3>
+            <ul class="feature-list">
+                <li>Kuokkalan yhtenäiskoulu (1.-9. luokat): 800 m</li>
+                <li>Jyväskylän yliopisto: 4,1 km</li>
+                <li>JAMK pääkampus: 5,3 km</li>
+            </ul>
+
+            <h3>Liikenneyhteydet</h3>
+            <ul class="feature-list">
+                <li>Hyvät joukkoliikenneyhteydet Jyväskylän keskustaan ja oppilaitoksille</li>
+                <li>Bussilinjat 18 ja 18K</li>
+                <li>Jyväskylän keskusta: 4,4 km</li>
+                <li>Hyvät pyöräreitit yliopistolle / keskustaan jne.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Lisätietoja</h2>
+
+            <h3>Vuokraan sisältyy</h3>
+            <ul class="feature-list">
+                <li>Nimetty autopaikka</li>
+                <li>Lämmitys</li>
+                <li>Yhteistilat (talopesula, mankeli, kellarikomerot, urheiluvälinevarasto)</li>
+                <li>Kaapeli-TV ja tietoliikenneyhteys</li>
+            </ul>
+
+            <h3>Erikseen maksettavat kulut</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="label">Vesimaksu</div>
+                    <div class="value">30 €/hlö/kk</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">Sähkö</div>
+                    <div class="value">Oma sopimus</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">Kotivakuutus</div>
+                    <div class="value">Oma sopimus</div>
+                </div>
+            </div>
+
+            <p style="margin-top: 20px; color: #666; font-style: italic;">
+                Lämpimän veden kulutus tasataan käytön mukaan. Vuokralaisen on hankittava oma kotivakuutus.
+            </p>
+        </div>
+
+        <div class="contact-section">
+            <h2>Ota Yhteyttä</h2>
+            <p>Kiinnostuitko? Ota yhteyttä, niin sovitaan asunnon esittely!</p>
+            <p style="margin-top: 20px; font-size: 1.1rem;">
+                tuomas.airaksinen@gmail.com
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Tuomas Airaksinen</p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <button class="lightbox-nav prev" onclick="navigateLightbox(-1); event.stopPropagation();" aria-label="Edellinen kuva">‹</button>
+        <button class="lightbox-nav next" onclick="navigateLightbox(1); event.stopPropagation();" aria-label="Seuraava kuva">›</button>
+        <img id="lightbox-img" src="" alt="Suurennettu kuva" onclick="event.stopPropagation();">
+        <div class="lightbox-counter" id="lightbox-counter">1 / 25</div>
+    </div>
+
+    <script>
+        // Kaikki kuvien lähteet
+        const allImages = [
+            'images/kuva-0.jpg',
+            'images/ORIGINAL(1).jpeg',
+            'images/ORIGINAL(2).jpeg',
+            'images/ORIGINAL(3).jpeg',
+            'images/ORIGINAL(4).jpeg',
+            'images/ORIGINAL(5).jpeg',
+            'images/ORIGINAL(6).jpeg',
+            'images/ORIGINAL(7).jpeg',
+            'images/ORIGINAL(8).jpeg',
+            'images/ORIGINAL(9).jpeg',
+            'images/ORIGINAL(10).jpeg',
+            'images/ORIGINAL(11).jpeg',
+            'images/ORIGINAL(12).jpeg',
+            'images/ORIGINAL(13).jpeg',
+            'images/ORIGINAL(14).jpeg',
+            'images/ORIGINAL(15).jpeg',
+            'images/ORIGINAL(16).jpeg',
+            'images/ORIGINAL(17).jpeg',
+            'images/ORIGINAL(18).jpeg',
+            'images/ORIGINAL(19).jpeg',
+            'images/ORIGINAL(20).jpeg',
+            'images/ORIGINAL(21).jpeg',
+            'images/ORIGINAL(22).jpeg',
+            'images/ORIGINAL(23).jpeg',
+            'images/ORIGINAL(24).jpeg'
+        ];
+
+        let currentImageIndex = 0;
+
+        function openLightbox(src) {
+            // Etsi kuvan indeksi
+            currentImageIndex = allImages.indexOf(src);
+            if (currentImageIndex === -1) currentImageIndex = 0;
+
+            updateLightboxImage();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function navigateLightbox(direction) {
+            currentImageIndex += direction;
+
+            // Pyöritä ympäri jos mennään reunojen yli
+            if (currentImageIndex < 0) {
+                currentImageIndex = allImages.length - 1;
+            } else if (currentImageIndex >= allImages.length) {
+                currentImageIndex = 0;
+            }
+
+            updateLightboxImage();
+        }
+
+        function updateLightboxImage() {
+            document.getElementById('lightbox-img').src = allImages[currentImageIndex];
+            document.getElementById('lightbox-counter').textContent =
+                (currentImageIndex + 1) + ' / ' + allImages.length;
+        }
+
+        function scrollGallery(direction) {
+            const gallery = document.getElementById('gallery');
+            const scrollAmount = 420; // kuvan leveys + gap
+            gallery.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+
+        document.addEventListener('keydown', function(e) {
+            const lightboxActive = document.getElementById('lightbox').classList.contains('active');
+
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+
+            // Jos lightbox on auki, nuolinäppäimet navigoivat lightboxissa
+            // Muuten ne scrollaavat karusellia
+            if (e.key === 'ArrowLeft') {
+                if (lightboxActive) {
+                    navigateLightbox(-1);
+                } else {
+                    scrollGallery(-1);
+                }
+            }
+            if (e.key === 'ArrowRight') {
+                if (lightboxActive) {
+                    navigateLightbox(1);
+                } else {
+                    scrollGallery(1);
+                }
+            }
+        });
+
+        // Sulje lightbox kun klikataan taustaa
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        // Touch support for mobile swipe in gallery
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const gallery = document.getElementById('gallery');
+
+        gallery.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+
+        gallery.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleGallerySwipe();
+        }, false);
+
+        function handleGallerySwipe() {
+            if (touchEndX < touchStartX - 50) {
+                scrollGallery(1);
+            }
+            if (touchEndX > touchStartX + 50) {
+                scrollGallery(-1);
+            }
+        }
+
+        // Touch support for mobile swipe in lightbox
+        const lightbox = document.getElementById('lightbox');
+        let lightboxTouchStartX = 0;
+        let lightboxTouchEndX = 0;
+
+        lightbox.addEventListener('touchstart', function(e) {
+            lightboxTouchStartX = e.changedTouches[0].screenX;
+        }, false);
+
+        lightbox.addEventListener('touchend', function(e) {
+            lightboxTouchEndX = e.changedTouches[0].screenX;
+            handleLightboxSwipe();
+        }, false);
+
+        function handleLightboxSwipe() {
+            if (lightboxTouchEndX < lightboxTouchStartX - 50) {
+                navigateLightbox(1);
+            }
+            if (lightboxTouchEndX > lightboxTouchStartX + 50) {
+                navigateLightbox(-1);
+            }
+        }
+    </script>
+</body>
+</html>
