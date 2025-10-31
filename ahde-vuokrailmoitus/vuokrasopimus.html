@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vuokrasopimus - Ahde 1 B (Esitäytettävä)</title>
+    <style>
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                margin: 0;
+                padding: 20mm;
+            }
+            input[type="text"],
+            input[type="date"],
+            textarea {
+                border: none !important;
+                border-bottom: 1px solid #000 !important;
+                background: transparent !important;
+                padding: 0 !important;
+            }
+            .checkbox-group {
+                border: none !important;
+            }
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            color: #000;
+            background: #f5f5f5;
+        }
+
+        .page {
+            background: white;
+            padding: 40px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24pt;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 14pt;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        h3 {
+            font-size: 12pt;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        p {
+            margin: 8px 0;
+            text-align: justify;
+        }
+
+        .party-info {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #000;
+        }
+
+        .party-info h3 {
+            margin-top: 0;
+        }
+
+        .signature-section {
+            margin-top: 50px;
+            page-break-inside: avoid;
+        }
+
+        .signature-box {
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+
+        .signature-line {
+            margin-top: 60px;
+            border-top: 1px solid #000;
+            padding-top: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        table td {
+            padding: 8px;
+            border: 1px solid #000;
+        }
+
+        input[type="text"],
+        input[type="date"] {
+            border: none;
+            border-bottom: 1px solid #000;
+            background: transparent;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            padding: 2px 5px;
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus {
+            background: #fffacd;
+        }
+
+        .field-inline {
+            display: inline-block;
+            min-width: 100px;
+        }
+
+        .field-short {
+            width: 80px;
+        }
+
+        .field-medium {
+            width: 200px;
+        }
+
+        .field-long {
+            width: 300px;
+        }
+
+        .field-full {
+            width: 100%;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            border: 1px solid #000;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            padding: 10px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            background: #fffacd;
+            outline: none;
+        }
+
+        .intro {
+            margin: 30px 0;
+        }
+
+        ul {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        .checkbox-group {
+            display: inline-block;
+            border: 1px solid #000;
+            padding: 2px 5px;
+            background: white;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin: 0 5px;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-print {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-print:hover {
+            background: #764ba2;
+        }
+
+        .btn-save {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #45a049;
+        }
+
+        .btn-load {
+            background: #2196F3;
+            color: white;
+        }
+
+        .btn-load:hover {
+            background: #0b7dda;
+        }
+
+        .btn-clear {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #da190b;
+        }
+
+        .info-message {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1001;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="controls no-print">
+        <button class="btn btn-save" onclick="saveTiedot()">💾 Tallenna tiedot</button>
+        <button class="btn btn-load" onclick="loadTiedot()">📂 Lataa tiedot</button>
+        <button class="btn btn-clear" onclick="clearTiedot()">🗑️ Tyhjennä</button>
+        <button class="btn btn-print" onclick="window.print()">🖨️ Tulosta</button>
+    </div>
+
+    <div class="info-message" id="infoMessage"></div>
+
+    <div class="page">
+        <h1>VUOKRASOPIMUS</h1>
+
+        <div class="intro">
+            <p>
+                Tämä vuokrasopimus on tehty
+                <input type="text" class="field-short" id="sopimusPaiva" placeholder="pp">. päivänä
+                <input type="text" class="field-medium" id="sopimusKuukausi" placeholder="kuukausi"> kuuta
+                <input type="text" class="field-short" id="sopimusVuosi" placeholder="20xx" value="20">
+            </p>
+        </div>
+
+        <div class="party-info">
+            <h3>VUOKRANANTAJA</h3>
+            <p>
+                Nimi: <input type="text" class="field-long" id="vuokranantajaNimi" placeholder="Etunimi Sukunimi">
+            </p>
+            <p>
+                Henkilötunnus: <input type="text" class="field-medium" id="vuokranantajaHetu" placeholder="ppkkvv-xxxX">
+            </p>
+            <p>
+                Osoite: <input type="text" class="field-long" id="vuokranantajaOsoite" placeholder="Katuosoite, postinumero Kaupunki">
+            </p>
+            <p>
+                Puhelinnumero: <input type="text" class="field-medium" id="vuokranantajaPuhelin" placeholder="040 123 4567">
+            </p>
+            <p>
+                Sähköposti: <input type="text" class="field-long" id="vuokranantajaEmail" placeholder="email@example.com">
+            </p>
+        </div>
+
+        <div class="party-info">
+            <h3>VUOKRALAINEN / VUOKRALAISET</h3>
+            <p>
+                Nimi: <input type="text" class="field-long" id="vuokralainen1Nimi" placeholder="Etunimi Sukunimi">
+            </p>
+            <p>
+                Henkilötunnus: <input type="text" class="field-medium" id="vuokralainen1Hetu" placeholder="ppkkvv-xxxX">
+            </p>
+            <p>
+                Puhelinnumero: <input type="text" class="field-medium" id="vuokralainen1Puhelin" placeholder="040 123 4567">
+            </p>
+            <p>
+                Sähköposti: <input type="text" class="field-long" id="vuokralainen1Email" placeholder="email@example.com">
+            </p>
+            <br>
+            <p style="color: #666; font-style: italic;">Toinen vuokralainen (jos on):</p>
+            <p>
+                Nimi: <input type="text" class="field-long" id="vuokralainen2Nimi" placeholder="Etunimi Sukunimi">
+            </p>
+            <p>
+                Henkilötunnus: <input type="text" class="field-medium" id="vuokralainen2Hetu" placeholder="ppkkvv-xxxX">
+            </p>
+            <p>
+                Puhelinnumero: <input type="text" class="field-medium" id="vuokralainen2Puhelin" placeholder="040 123 4567">
+            </p>
+            <p>
+                Sähköposti: <input type="text" class="field-long" id="vuokralainen2Email" placeholder="email@example.com">
+            </p>
+        </div>
+
+        <h2>1. VUOKRAKOHDE</h2>
+        <p>
+            Vuokranantaja vuokraa vuokralaiselle asuinhuoneiston osoitteessa:
+        </p>
+        <p style="text-align: center; font-weight: bold; margin: 15px 0;">
+            Ahde 1 B 17, 40520 Jyväskylä
+        </p>
+
+        <table>
+            <tr>
+                <td><strong>Huoneistotyyppi:</strong></td>
+                <td>Kaksio (2h+k+s+p)</td>
+            </tr>
+            <tr>
+                <td><strong>Pinta-ala:</strong></td>
+                <td>53,5 m²</td>
+            </tr>
+            <tr>
+                <td><strong>Kerros:</strong></td>
+                <td>3. kerros (ylin kerros)</td>
+            </tr>
+            <tr>
+                <td><strong>Rakennusvuosi:</strong></td>
+                <td>1986</td>
+            </tr>
+            <tr>
+                <td><strong>Taloyhtiö:</strong></td>
+                <td>Asunto Oy Pohjanahde</td>
+            </tr>
+        </table>
+
+        <h3>1.1 Huoneiston varustelu</h3>
+        <p>Huoneistoon kuuluu:</p>
+        <ul>
+            <li>Keittiö: parkettilattia, maalatut seinät, jääkaappipakastin, keraaminen liesi, liesituuletin, astianpesukone ja kaapistot</li>
+            <li>Olohuone: parkettilattia, maalatut seinät</li>
+            <li>Makuuhuone: laminaattilattia, tapetoidut seinät</li>
+            <li>Sauna: laattalattia, paneeliseinät, sähkökiuas</li>
+            <li>Kylpyhuone: laatoitettu, suihku, peilikaappi, pesukoneliitäntä (peruskorjattu v. 2020)</li>
+            <li>Eteinen: parkettilattia, maalatut seinät</li>
+            <li>Lasitettu parveke (avautuu sisäpihalle)</li>
+            <li>Kellarikomero</li>
+            <li>Nimetty autopaikka</li>
+        </ul>
+
+        <h3>1.2 Taloyhtiön yhteistilat ja palvelut</h3>
+        <ul>
+            <li>Talopesula ja mankeli</li>
+            <li>Kellarikomerot</li>
+            <li>Urheiluvälinevarasto</li>
+            <li>Kaapeli-TV ja tietoliikenneyhteys</li>
+        </ul>
+
+        <h2>2. VUOKRA-AIKA</h2>
+        <p>
+            Vuokra-aika alkaa
+            <input type="text" class="field-short" id="alkamisPaiva" placeholder="pp">. päivänä
+            <input type="text" class="field-medium" id="alkamisKuukausi" placeholder="kuukausi"> kuuta
+            <input type="text" class="field-short" id="alkamisVuosi" placeholder="20xx" value="20">
+        </p>
+
+        <h3>2.1 Määräaikaisuus</h3>
+        <p>
+            Vuokrasopimus on voimassa <strong>määräaikaisena yhden (1) vuoden ajan</strong> vuokra-ajan alkamispäivästä lukien,
+            ja päättyy
+            <input type="text" class="field-short" id="paattymisPaiva" placeholder="pp">. päivänä
+            <input type="text" class="field-medium" id="paattymisKuukausi" placeholder="kuukausi"> kuuta
+            <input type="text" class="field-short" id="paattymisVuosi" placeholder="20xx" value="20">.
+        </p>
+        <p>
+            Määräaikaisen sopimuksen päättyessä syntyy <strong>uusi toistaiseksi voimassa oleva vuokrasopimus</strong>
+            samoilla ehdoilla, ellei kumpikaan osapuoli ilmoita kirjallisesti sopimuksen päättämisestä viimeistään
+            <strong>1 kuukausi ennen</strong> määräajan päättymispäivää.
+        </p>
+
+        <h3>2.2 Irtisanomisaika</h3>
+        <p>
+            Määräaikaista vuokrasopimusta ei voida irtisanoa kesken sopimuskauden, ellei asiasta ole erikseen sovittu
+            tässä sopimuksessa tai laissa säädetty purkuperustetta ole olemassa.
+        </p>
+        <p>
+            Kun vuokrasopimus on toistaiseksi voimassa oleva, irtisanomisaika on:
+        </p>
+        <ul>
+            <li>Vuokralaisella <strong>yksi (1) kuukausi</strong></li>
+            <li>Vuokranantajalla:
+                <ul>
+                    <li><strong>Kolme (3) kuukautta</strong>, jos vuokrasuhde on kestänyt alle vuoden</li>
+                    <li><strong>Kuusi (6) kuukautta</strong>, jos vuokrasuhde on kestänyt vähintään vuoden</li>
+                </ul>
+            </li>
+        </ul>
+        <p>
+            Irtisanominen on tehtävä kirjallisesti ja se tulee tiedoksi vastaanottajalle hänen saatuaan sen haltuunsa.
+        </p>
+
+        <h2>3. VUOKRAN MÄÄRÄ JA MAKSUTAPA</h2>
+
+        <h3>3.1 Vuokra</h3>
+        <p>
+            Kuukausivuokra on <strong>650,00 euroa (kuusisataaviisikymmentä euroa)</strong>.
+        </p>
+        <p>
+            Vuokra maksetaan etukäteen kunkin kuukauden <strong>1. päivään</strong> mennessä vuokranantajan tilille:
+        </p>
+        <p style="margin-left: 40px;">
+            IBAN: <input type="text" class="field-long" id="vuokranantajaIban" placeholder="FI00 0000 0000 0000 00">
+        </p>
+        <p style="margin-left: 40px;">
+            Viitenumero: <input type="text" class="field-medium" id="vuokranantajaViite" placeholder="12345">
+        </p>
+        <p>
+            Maksun viivästyessä peritään korkolain mukainen viivästyskorko ja kohtuulliset perintäkulut.
+        </p>
+
+        <h3>3.2 Vuokraan sisältyvät kulut</h3>
+        <p>Vuokraan sisältyy:</p>
+        <ul>
+            <li>Kaukolämmitys</li>
+            <li>Nimetty autopaikka</li>
+            <li>Kaapeli-TV ja tietoliikenneyhteys</li>
+            <li>Yhteistilojen käyttö (talopesula, mankeli, kellarikomerot, urheiluvälinevarasto)</li>
+        </ul>
+
+        <h3>3.3 Vuokralaisen erikseen maksettavat kulut</h3>
+        <p>Vuokralainen maksaa erikseen:</p>
+        <ul>
+            <li><strong>Vesimaksu:</strong> 30,00 euroa/henkilö/kuukausi. Vesimaksu tasataan puolivuosittain
+                huoneistokohtaisen vesimittarin lukeman mukaan. Mahdollinen lisä- tai hyvityslasku lisätään tai
+                vähennetään seuraavan kuukauden vuokrasta.</li>
+            <li><strong>Sähkö:</strong> Vuokralainen tekee oman sähkösopimuksen sähköyhtiön kanssa.</li>
+            <li><strong>Kotivakuutus:</strong> Vuokralainen hankkii oman kotivakuutuksen, joka kattaa vuokralaisen irtaimiston ja vastuuvakuutuksen.</li>
+        </ul>
+
+        <h3>3.4 Vuokran tarkistaminen</h3>
+        <p>
+            Vuokraa tarkistetaan vuosittain <strong>1. tammikuuta</strong> alkaen Tilastokeskuksen julkaiseman
+            <strong>elinkustannusindeksin (1951:10=100)</strong> muutoksen mukaisesti.
+        </p>
+        <p>
+            <strong>Perusindeksi</strong> on kuukauden
+            <input type="text" class="field-medium" id="perusindeksiKuukausi" placeholder="marraskuu 2025"> indeksi,
+            pisteluku <input type="text" class="field-medium" id="perusindeksiPisteluku" placeholder="esim. 2067">.
+        </p>
+        <p>
+            Ensimmäinen vuokran tarkistus tehdään
+            <input type="text" class="field-short" id="tarkistusVuosi1" placeholder="20xx"> vuoden tammikuussa,
+            jolloin vertaillaan
+            <input type="text" class="field-short" id="tarkistusVuosi2" placeholder="20xx"> vuoden marraskuun indeksiä perusindeksiin.
+        </p>
+        <p>
+            Uusi vuokra lasketaan kaavalla:
+        </p>
+        <p style="text-align: center; font-family: monospace; background: #f5f5f5; padding: 15px; margin: 15px 40px; border-left: 4px solid #667eea;">
+            Uusi vuokra = Nykyinen vuokra × (Marraskuu-indeksi / Perusindeksi)
+        </p>
+        <p>
+            Tarkistettu vuokra pyöristetään lähimpään yhteen (1) euroon. Mikäli elinkustannusindeksi laskee,
+            vuokraa alennetaan vastaavasti.
+        </p>
+        <p>
+            <strong>Vuokranantaja ilmoittaa vuokralaiselle kirjallisesti</strong> (sähköpostilla tai kirjeellä)
+            uuden vuokran määrän ja laskelman viimeistään <strong>14 päivää ennen</strong> vuokran tarkistuksen
+            voimaantuloa (1.1.). Vuokran tarkistus ei edellytä vuokralaisen erillistä hyväksyntää.
+        </p>
+        <p style="font-style: italic; color: #666; font-size: 0.95em;">
+            <strong>Huom:</strong> Marraskuun indeksi käytetään, koska joulukuun indeksi julkaistaan vasta tammikuussa,
+            eikä 14 päivän ilmoitusaikaa voitaisi noudattaa käyttäen joulukuun lukuja.
+        </p>
+        <p>
+            Tilastokeskuksen elinkustannusindeksi löytyy osoitteesta:
+            <a href="https://stat.fi/tilasto/khi#tables" style="color: #667eea;" target="_blank">
+                https://stat.fi/tilasto/khi#tables
+            </a>
+        </p>
+
+        <h2>4. VUOKRAVAKUUS</h2>
+        <p>
+            Vuokralainen maksaa vuokravakuudeksi <strong>1 300,00 euroa (tuhatkolmesataa euroa)</strong>, joka vastaa
+            kahden kuukauden vuokraa.
+        </p>
+        <p>
+            Vakuus maksetaan vuokranantajan tilille viimeistään vuokra-ajan alkamispäivänä.
+        </p>
+        <p>
+            Vuokravakuus palautetaan vuokralaiselle <strong>viimeistään 30 päivän kuluessa</strong> avainten palautuksesta
+            ja loppukatselmuksesta, kun mahdolliset saatavat ja vahingonkorvaukset on selvitetty. Vakuudesta voidaan
+            vähentää huoneistolle aiheutuneet vahingot, jotka ylittävät normaalin kulumisen, sekä mahdolliset maksamattomat
+            vuokrat ja muut vuokrasuhteeseen liittyvät kulut.
+        </p>
+        <p>
+            Mikäli vakuudesta vähennetään kuluja, vuokranantajan tulee toimittaa vuokralaiselle kirjallinen erittely
+            vähennyksistä vakuuden palautuksen yhteydessä.
+        </p>
+        <p>
+            Vakuutta ei voi käyttää viimeisen kuukauden vuokran maksuna.
+        </p>
+
+        <h2>5. KUNNOSSAPITO- JA KORJAUSVASTUUT</h2>
+
+        <h3>5.1 Vuokranantajan vastuu</h3>
+        <p>Vuokranantaja vastaa:</p>
+        <ul>
+            <li>Rakennuksen ja huoneiston rakenteellisesta kunnosta</li>
+            <li>Isännöitsijän ja taloyhtiön päättämistä korjauksista</li>
+            <li>Huoneiston suurista korjauksista ja remonteista</li>
+            <li>Lämmitys-, vesi- ja viemärijärjestelmien toimivuudesta</li>
+        </ul>
+
+        <h3>5.2 Vuokralaisen vastuu</h3>
+        <p>Vuokralainen vastaa:</p>
+        <ul>
+            <li>Huoneiston päivittäisestä siisteydestä ja hyvästä hoidosta</li>
+            <li>Pienistä korjauksista, kuten lamppujen ja sulakkeiden vaihdosta</li>
+            <li>Mahdollisista vuokralaisen tai hänen vieraittensa aiheuttamista vahingoista</li>
+        </ul>
+
+        <h3>5.3 Parkettilattioiden hoito</h3>
+        <p>
+            Huoneistossa on parkettilattiat keittiössä, olohuoneessa ja eteisessä. <strong>Parkettilattia ei siedä kosteutta</strong>,
+            joten vuokralaisen tulee noudattaa erityistä huolellisuutta kosteusvaurioiden välttämiseksi:
+        </p>
+        <ul>
+            <li><strong>Saunomisen yhteydessä:</strong> Mikäli vuokralainen kulkee saunasta parvekkeelle, tulee varmistaa että
+                parkettilattia ei kastu. Suositellaan kenkien tai sandaalien käyttöä tai kuivien mattojen laittamista kulkureitille.</li>
+            <li><strong>Kukkaruukut ja kasvit:</strong> Kaikkien lattialla olevien kukkaruukkujen ja kastikoiden alle on asetettava
+                <strong>vedenpitävä suoja (esim. muovinen alusta)</strong>, jotta ruukun pohjasta valuva kosteus tai vesi
+                ei vahingoita parkettia tai jätä jälkiä.</li>
+            <li><strong>Yleinen kosteudenhallinta:</strong> Lattialle roiskuvat nesteet tulee pyyhkiä välittömästi pois.</li>
+        </ul>
+        <p>
+            Vuokralainen on vastuussa parkettilattioihin aiheutuneista kosteusvaurioista, jotka johtuvat huolimattomasta
+            käsittelystä tai edellä mainittujen ohjeiden laiminlyönnistä.
+        </p>
+
+        <h2>6. HUONEISTON KÄYTTÖ</h2>
+
+        <h3>6.1 Käyttötarkoitus ja asukkaiden määrä</h3>
+        <p>
+            Huoneistoa saa käyttää ainoastaan asumiseen. Huoneistossa ei saa harjoittaa liiketoimintaa ilman
+            vuokranantajan kirjallista lupaa.
+        </p>
+        <p>
+            Huoneistossa saa asua enintään <input type="text" class="field-short" id="asukkaatMax" placeholder="2" style="width: 40px;"> henkilöä.
+            Vuokralaisen tulee ilmoittaa vuokranantajalle kirjallisesti, mikäli huoneistoon muuttaa lisää asukkaita
+            tai joku asukas muuttaa pois. Ilmoitus tulee tehdä viimeistään kahden (2) viikon kuluessa muutoksesta.
+        </p>
+        <p>
+            Vuokralainen sitoutuu noudattamaan taloyhtiön yhtiöjärjestystä, järjestyssääntöjä ja muita taloyhtiön
+            antamia määräyksiä. Vuokranantaja toimittaa vuokralaiselle kopion järjestyssäännöistä huoneiston
+            luovutuksen yhteydessä.
+        </p>
+
+        <h3>6.2 Tupakointi ja päihteiden käyttö</h3>
+        <p>
+            <strong>Huoneistossa ja parvekkeella on ehdottomasti kielletty tupakointi.</strong> Tupakointikielto koskee
+            kaikkia savukkeita, tupakkaa, sähkösavukkeita, vesipiippuja ja muita tupakkatuotteita sekä kaikkien aineiden
+            polttamista.
+        </p>
+        <p>
+            Huoneistossa ei saa harjoittaa laitonta toimintaa. Huumausaineiden käyttö tai hallussapito on kielletty.
+        </p>
+        <p>
+            Tupakointikiellon tai laittoman toiminnan olennainen tai toistuva rikkominen voi johtaa vuokrasopimuksen
+            purkamiseen kirjallisen varoituksen jälkeen. Vuokralainen on velvollinen korvaamaan huoneistolle aiheutuneet
+            vahingot ja haitat.
+        </p>
+
+        <h3>6.3 Lemmikkieläimet</h3>
+        <p>
+            Lemmikkieläinten pitämisestä huoneistossa on sovittava erikseen vuokranantajan kanssa. Mikäli lemmikkieläimen
+            pitämiseen annetaan lupa, vuokralainen vastaa kaikista eläimen aiheuttamista vahingoista ja haitoista.
+        </p>
+        <p>
+            <strong>Lemmikkieläinten pitäminen huoneistossa (valitse yksi):</strong>
+        </p>
+        <p style="margin-left: 40px;">
+            <span class="checkbox-group">
+                <input type="checkbox" id="lemmikitKielletty" name="lemmikitValinta" onclick="uncheckOther('lemmikitKielletty')">
+                <label for="lemmikitKielletty"><strong>☐ KIELLETTY</strong></label>
+            </span>
+        </p>
+        <p style="margin-left: 40px;">
+            <span class="checkbox-group">
+                <input type="checkbox" id="lemmikitSallittu" name="lemmikitValinta" onclick="uncheckOther('lemmikitSallittu')">
+                <label for="lemmikitSallittu"><strong>☐ SALLITTU</strong> seuraavilla ehdoilla:</label>
+            </span>
+            <br>
+            <input type="text" class="field-full" id="lemmikitEhdot" placeholder="Kirjoita ehdot tähän (esim. 'enintään yksi kissa, ei koiria')" style="margin-top: 10px; margin-left: 30px; width: calc(100% - 30px);">
+        </p>
+        <p style="margin-left: 40px; color: #666; font-style: italic; font-size: 0.9em;">
+            HUOM: Valitse jompikumpi vaihtoehto ja täytä tarvittaessa ehdot. Tyhjäksi jätetty kohta on tulkinnanvarainen.
+        </p>
+
+        <h3>6.4 Muutostyöt</h3>
+        <p>
+            Vuokralainen ei saa tehdä huoneistoon rakenteellisia muutoksia tai muita pysyviä muutoksia ilman
+            vuokranantajan kirjallista lupaa. Tämä koskee mm. seinien maalaamista,
+            tapettointia, lattioiden vaihtamista ja kiinteiden kalusteiden asentamista.
+        </p>
+        <p>
+            Pienet sisustukselliset muutokset, kuten taulujen ripustaminen, ovat sallittuja. Vuokralaisen tulee
+            kuitenkin korjata reiät ja vauriot vuokrasuhteen päättyessä.
+        </p>
+
+        <h3>6.5 Avaimen luovutus ja lukitus</h3>
+        <p>
+            Vuokralainen saa huoneiston avaimet vuokra-ajan alkaessa. Avaimia ei saa kopioida ilman vuokranantajan lupaa.
+            Vuokralainen vastaa avainten huolellisesta säilyttämisestä ja lukkojen vaihdosta, mikäli avaimet katoavat.
+        </p>
+        <p>
+            Huoneiston ovien on oltava lukittuna, kun kukaan ei ole kotona. Vuokralainen on vastuussa vahingoista,
+            jotka aiheutuvat lukitsematta jätetyn oven kautta.
+        </p>
+
+        <h2>7. ALIVUOKRAUS JA VÄLIAIKAINEN LUOVUTUS</h2>
+        <p>
+            Alivuokraus tai koko huoneiston luovutus kolmannelle osapuolelle edellyttää vuokranantajan kirjallista lupaa.
+        </p>
+        <p>
+            Tilapäinen luovutus on sallittu asuinhuoneiston vuokrauksesta annetun lain (AHVL 481/1995) 27 §:n mukaisesti
+            painavasta syystä (esim. pidempi työmatka, opiskelu toisella paikkakunnalla), ellei vuokranantajalla ole
+            perusteltua syytä vastustaa luovutusta. Vuokralaisen tulee ilmoittaa tilapäisestä luovutuksesta
+            vuokranantajalle kirjallisesti etukäteen.
+        </p>
+        <p>
+            Vuokralainen vastaa aina huoneiston käytöstä ja kunnosta sekä vuokran maksamisesta myös alivuokraus- tai
+            luovutustilanteessa.
+        </p>
+
+        <h2>8. VAKUUTUKSET</h2>
+        <p>
+            <strong>Vuokralaisen on hankittava voimassaoleva kotivakuutus</strong>, joka kattaa vuokralaisen irtaimiston
+            sekä vastuuvakuutuksen. Vakuutuksen tulee olla voimassa koko vuokra-ajan.
+        </p>
+        <p>
+            Vuokralaisen tulee esittää vuokranantajalle vakuutustodistus vuokra-ajan alkaessa ja pyydettäessä
+            myöhemminkin vuokrasuhteen aikana.
+        </p>
+        <p>
+            Vuokranantaja ei vastaa vuokralaisen omaisuudelle aiheutuneista vahingoista, ellei vahinko ole aiheutunut
+            vuokranantajan laiminlyönnistä tai huoneiston rakenteellisista vioista.
+        </p>
+
+        <h2>9. VUOKRASOPIMUKSEN PURKAMINEN JA PÄÄTTÄMINEN</h2>
+
+        <h3>9.1 Vuokranantajan oikeus purkaa sopimus</h3>
+        <p>
+            Vuokranantajalla on oikeus purkaa vuokrasopimus välittömästi asuinhuoneiston vuokrauksesta annetun lain
+            61-62 §:ien mukaisilla perusteilla. Purku edellyttää pääsääntöisesti olennaista sopimusrikkomusta ja
+            kirjallista varoitusta, lukuun ottamatta erityisen vakavia rikkomuksia.
+        </p>
+        <p>Vuokranantajalla on oikeus purkaa vuokrasopimus, jos:</p>
+        <ul>
+            <li>Vuokralainen on vähintään yhden kuukauden vuokran maksamatta eikä maksa sitä kohtuullisessa ajassa
+                (7 päivää) kirjallisen huomautuksen saatuaan</li>
+            <li>Vuokralainen käyttää huoneistoa olennaisesti sopimuksen vastaisesti tai aiheuttaa olennaista haittaa
+                tai vaaraa, ja jatkaa tällaista käyttöä kirjallisen varoituksen jälkeen</li>
+            <li>Vuokralainen rikkoo olennaisesti tai toistuvasti tupakointikieltoa kirjallisen varoituksen jälkeen</li>
+            <li>Vuokralainen alivuokraa huoneistoa tai luovuttaa sen toisen käyttöön luvattomasti</li>
+            <li>Vuokralainen on antanut sopimusta tehtäessä tahallisesti olennaisesti virheellisiä tietoja, jotka ovat
+                vaikuttaneet sopimuksen tekemiseen</li>
+        </ul>
+
+        <h3>9.2 Vuokralaisen oikeus purkaa sopimus</h3>
+        <p>Vuokralaisella on oikeus purkaa vuokrasopimus välittömästi, jos:</p>
+        <ul>
+            <li>Huoneisto on sellaisessa kunnossa, ettei sitä voida käyttää asumistarkoitukseen</li>
+            <li>Vuokranantaja laiminlyö olennaisesti kunnossapitovelvollisuuttaan</li>
+            <li>Huoneiston käyttöä rajoittava vika tai puute on olennainen eikä sitä korjata kohtuullisessa ajassa</li>
+        </ul>
+
+        <h3>9.3 Huoneiston luovutus vuokrasuhteen päättyessä</h3>
+        <p>
+            Vuokralaisen on luovutettava huoneisto tyhjänä ja siivottuna vuokra-ajan päättyessä. Huoneisto on
+            palautettava vastaavassa kunnossa kuin se oli vuokralaisen vastaanottaessa, normaalista kulumisesta
+            johtuvat vähäiset muutokset hyväksyen.
+        </p>
+        <p>
+            <strong>Loppukatselmus ja avainten palautus:</strong>
+        </p>
+        <ul>
+            <li>Osapuolet sopivat loppukatselmuksen ajankohdasta vähintään viikkoa etukäteen</li>
+            <li>Loppukatselmuksessa todetaan huoneiston kunto ja laaditaan kirjallinen luovutuspöytäkirja</li>
+            <li>Vuokralainen palauttaa kaikki huoneiston avaimet loppukatselmuksen yhteydessä</li>
+            <li>Vuokralaisen tulee esittää loppukatselmuksessa todiste sähkösopimuksen päättämisestä ja viimeiset mittarilukemat</li>
+            <li>Pöytäkirja allekirjoitetaan molempien osapuolten toimesta</li>
+        </ul>
+        <p>
+            <strong>Loppusiivous:</strong> Huoneisto on siivottava perusteellisesti, mukaan lukien:
+        </p>
+        <ul>
+            <li>Kaikki lattiat, seinät ja katot</li>
+            <li>Keittiön kaapistot sisältä ja ulkoa, kodinkoneet</li>
+            <li>Kylpyhuone ja sauna perusteellisesti (laatat, kaakelit, kalusteet)</li>
+            <li>Ikkunat sisältä ja ulkoa</li>
+            <li>Parveke ja säilytystilat</li>
+        </ul>
+        <p>
+            Mikäli huoneisto ei ole asianmukaisesti siivottu, vuokranantajalla on oikeus tilata siivous
+            vuokralaisen kustannuksella ja vähentää kustannukset vakuudesta.
+        </p>
+        <p>
+            Mikäli vuokralainen ei luovuta huoneistoa sovittuna ajankohtana, vuokralainen on velvollinen maksamaan
+            viivästyneeltä ajalta vuokraa vastaavan korvauksen.
+        </p>
+
+        <h2>10. MUUT EHDOT</h2>
+
+        <h3>10.1 Luottotiedot</h3>
+        <p>
+            Vuokralaisella tulee olla kunnossa olevat luottotiedot vuokrasopimusta tehtäessä.
+        </p>
+
+        <h3>10.2 Ilmoitusvelvollisuus ja vikailmoitukset</h3>
+        <p>
+            Vuokralaisen tulee ilmoittaa vuokranantajalle viipymättä kaikista huoneistossa havaitsemistaan vioista,
+            vahingoista tai puutteista. Ilmoitusvelvollisuuden laiminlyönti voi aiheuttaa vastuun mahdollisista
+            vahingosta aiheutuneista lisäkustannuksista.
+        </p>
+        <p>
+            <strong>Vikailmoitukset ja yhteydenotot:</strong>
+        </p>
+        <p>
+            Taloyhtiön huoltoyhtiö on <strong>Huoltosilta</strong> (<a href="https://huoltosilta.fi" target="_blank" style="color: #667eea;">huoltosilta.fi</a>).
+        </p>
+        <ul>
+            <li><strong>Huoltopäivystys</strong> (kiireelliset viat työajan ulkopuolella - vesivuodot, lämmitysviat, turvallisuusriskit):
+                <strong>0207 351 610</strong></li>
+            <li><strong>Asiakaspalvelu ja työtilaukset</strong> (arkisin työaikana):
+                <strong>0400 917 722</strong></li>
+            <li><strong>Muuttoilmoitus ja huoltopyynnöt verkossa</strong>:
+                <a href="https://huoltosilta.fi" target="_blank" style="color: #667eea;">https://huoltosilta.fi</a></li>
+        </ul>
+        <p>
+            <strong>Yhteydenotot vuokranantajalle:</strong> Vuokrasopimukseen ja vuokranmaksuun liittyvissä asioissa
+            ota yhteyttä suoraan vuokranantajaan tämän sopimuksen alussa mainittuihin yhteystietoihin.
+        </p>
+        <h3>10.3 Tiedoksiantosoitteet</h3>
+        <p>
+            Kaikki vuokrasuhteeseen liittyvät ilmoitukset, huomautukset ja irtisanomiset on tehtävä kirjallisesti
+            tässä sopimuksessa mainittuihin osoitteisiin tai sähköpostiosoitteisiin.
+        </p>
+        <p>
+            Osapuolet sitoutuvat ilmoittamaan toisilleen viipymättä yhteystietojen muutoksista.
+        </p>
+
+        <h3>10.4 Sovellettava lainsäädäntö</h3>
+        <p>
+            Tähän vuokrasopimukseen sovelletaan Suomen asuinhuoneiston vuokrauksesta annettua lakia (481/1995) ja
+            muuta voimassa olevaa lainsäädäntöä.
+        </p>
+
+        <h3>10.5 Erimielisyyksien ratkaiseminen</h3>
+        <p>
+            Tästä sopimuksesta mahdollisesti aiheutuvat erimielisyydet pyritään ensisijaisesti ratkaisemaan
+            osapuolten välisillä neuvotteluilla.
+        </p>
+        <p>
+            Mikäli neuvotteluteitse ei päästä ratkaisuun, riita-asiat käsitellään ensisijaisesti asianosaisen
+            kotipaikan käräjäoikeudessa. Kuluttajalla on aina oikeus nostaa kanne oman kotipaikkansa käräjäoikeudessa
+            kuluttajansuojalain mukaisesti.
+        </p>
+        <p>
+            Vuokra-asioissa voi myös hakea maksutonta sovittelua kuluttajaneuvonnasta tai kuluttajariitalautakunnasta.
+        </p>
+
+        <h2>11. ALKUKATSELMUSPÖYTÄKIRJA</h2>
+        <p>
+            Vuokra-ajan alkaessa osapuolet suorittavat yhdessä huoneiston alkukatselmuksen, jossa todetaan
+            huoneiston kunto vuokrasuhteen alkaessa. Katselmuksesta laaditaan erillinen pöytäkirja, joka
+            liitetään osaksi tätä vuokrasopimusta.
+        </p>
+        <p>
+            Alkukatselmuspöytäkirja on liitteenä:
+            <span class="checkbox-group">
+                <input type="checkbox" id="katselmusKylla" name="katselmusValinta" onclick="uncheckOther('katselmusKylla')">
+                <label for="katselmusKylla">Kyllä</label>
+            </span>
+            <span class="checkbox-group">
+                <input type="checkbox" id="katselmusMyohemmin" name="katselmusValinta" onclick="uncheckOther('katselmusMyohemmin')">
+                <label for="katselmusMyohemmin">Tehdään myöhemmin</label>
+            </span>
+        </p>
+
+        <h2>12. ALLEKIRJOITUKSET</h2>
+        <p>
+            Tämä vuokrasopimus on laadittu kahtena (2) yhtäpitävänä kappaleena, yksi kummallekin osapuolelle.
+        </p>
+
+        <div class="signature-section">
+            <div class="signature-box">
+                <p>
+                    <input type="text" class="field-medium" id="allekirjoitusPaikka" placeholder="Kaupunki">,
+                    <input type="text" class="field-short" id="allekirjoitusPaiva" placeholder="pp">. päivänä
+                    <input type="text" class="field-medium" id="allekirjoitusKuukausi" placeholder="kuukausi"> kuuta
+                    <input type="text" class="field-short" id="allekirjoitusVuosi" placeholder="20xx" value="20">
+                </p>
+            </div>
+
+            <table style="border: none; margin-top: 40px;">
+                <tr>
+                    <td style="border: none; width: 50%; vertical-align: bottom; padding-bottom: 0;">
+                        <div class="signature-line">
+                            Vuokranantaja
+                        </div>
+                        <p style="margin-top: 10px;">Nimen selvennys: <input type="text" class="field-medium" id="vuokranantajaSelvennys" placeholder=""></p>
+                    </td>
+                    <td style="border: none; width: 50%; vertical-align: bottom; padding-bottom: 0;">
+                        <div class="signature-line">
+                            Vuokralainen
+                        </div>
+                        <p style="margin-top: 10px;">Nimen selvennys: <input type="text" class="field-medium" id="vuokralainen1Selvennys" placeholder=""></p>
+                    </td>
+                </tr>
+            </table>
+
+            <div style="margin-top: 50px;">
+                <div class="signature-line" style="width: 48%; display: inline-block;">
+                    Vuokralainen (mikäli useampi)
+                </div>
+                <p style="margin-top: 10px;">Nimen selvennys: <input type="text" class="field-long" id="vuokralainen2Selvennys" placeholder=""></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIITE: Alkukatselmuspöytäkirja -->
+    <div class="page" style="page-break-before: always;">
+        <h2>LIITE: ALKUKATSELMUSPÖYTÄKIRJA</h2>
+        <p style="font-style: italic; color: #666;">
+            (Täytetään vuokrasuhteen alkaessa molempien osapuolten läsnä ollessa)
+        </p>
+
+        <p>
+            Päivämäärä: <input type="text" class="field-medium" id="katselmusPvm" placeholder="pp.kk.vvvv">
+        </p>
+        <p>
+            Huoneisto: Ahde 1 B 17, 40520 Jyväskylä
+        </p>
+
+        <h3>Mittarilukemat</h3>
+        <p>Sähkömittari: <input type="text" class="field-medium" id="sahkoMittari" placeholder="0"> kWh</p>
+        <p>Vesimittari (jos käytössä): <input type="text" class="field-medium" id="vesiMittari" placeholder="0"> m³</p>
+
+        <h3>Avainten lukumäärä ja luovutus</h3>
+        <p>
+            <strong>Vuokralaiselle luovutetut avaimet:</strong>
+        </p>
+        <table style="margin-top: 10px;">
+            <tr>
+                <td style="width: 40%;"><strong>Avaimen tyyppi</strong></td>
+                <td style="width: 20%;"><strong>Lukumäärä (kpl)</strong></td>
+                <td><strong>Huomiot</strong></td>
+            </tr>
+            <tr>
+                <td>Ulko-ovi</td>
+                <td><input type="text" class="field-short" id="avainUlko" placeholder="0" style="width: 50px;"></td>
+                <td><input type="text" class="field-full" id="avainUlkoHuomio" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Kellari/varasto</td>
+                <td><input type="text" class="field-short" id="avainKellari" placeholder="0" style="width: 50px;"></td>
+                <td><input type="text" class="field-full" id="avainKellariHuomio" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Postilaatikko</td>
+                <td><input type="text" class="field-short" id="avainPosti" placeholder="0" style="width: 50px;"></td>
+                <td><input type="text" class="field-full" id="avainPostiHuomio" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Takalukko</td>
+                <td><input type="text" class="field-short" id="avainTakalukko" placeholder="0" style="width: 50px;"></td>
+                <td><input type="text" class="field-full" id="avainTakalukkoHuomio" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Autopaikan sähköpistoke</td>
+                <td><input type="text" class="field-short" id="avainSahkopistoke" placeholder="0" style="width: 50px;"></td>
+                <td><input type="text" class="field-full" id="avainSahkopistokeHuomio" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Muut avaimet</td>
+                <td><input type="text" class="field-short" id="avainMuutLkm" placeholder="0" style="width: 50px;"></td>
+                <td><input type="text" class="field-full" id="avainMuut" placeholder="Mitä avaimia?"></td>
+            </tr>
+        </table>
+        <p style="margin-top: 15px; font-style: italic; color: #666;">
+            <strong>HUOM:</strong> Kaikki luovutetut avaimet on palautettava vuokrasuhteen päättyessä. Kadonneista avaimista
+            aiheutuvat lukkojen vaihtokulut veloitetaan vuokralaiselta.
+        </p>
+
+        <h3>Huoneiston kunto</h3>
+        <p style="font-style: italic;">Merkitkää huomiot huoneiston kunnosta, mahdolliset viat, kulumajäljet tms.</p>
+
+        <table>
+            <tr>
+                <td style="width: 30%;"><strong>Tila</strong></td>
+                <td><strong>Huomiot</strong></td>
+            </tr>
+            <tr>
+                <td>Eteinen</td>
+                <td><input type="text" class="field-full" id="kuntoEteinen" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Keittiö</td>
+                <td><input type="text" class="field-full" id="kuntoKeittio" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Olohuone</td>
+                <td><input type="text" class="field-full" id="kuntoOlohuone" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Makuuhuone</td>
+                <td><input type="text" class="field-full" id="kuntoMakuuhuone" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Kylpyhuone</td>
+                <td><input type="text" class="field-full" id="kuntoKylpyhuone" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Sauna</td>
+                <td><input type="text" class="field-full" id="kuntoSauna" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Parveke</td>
+                <td><input type="text" class="field-full" id="kuntoParveke" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Kellari/varasto</td>
+                <td><input type="text" class="field-full" id="kuntoKellari" placeholder=""></td>
+            </tr>
+        </table>
+
+        <h3>Kodinkoneet ja varusteet</h3>
+        <table>
+            <tr>
+                <td style="width: 30%;"><strong>Laite</strong></td>
+                <td style="width: 25%;"><strong>Toimivuus</strong></td>
+                <td><strong>Huomiot</strong></td>
+            </tr>
+            <tr>
+                <td>Jääkaappipakastin</td>
+                <td>
+                    <span class="checkbox-group">
+                        <input type="checkbox" id="jaakaapiOk" onclick="uncheckOther('jaakaapiOk')"> OK
+                    </span>
+                    <span class="checkbox-group">
+                        <input type="checkbox" id="jaakaapiEiOk" onclick="uncheckOther('jaakaapiEiOk')"> Ei OK
+                    </span>
+                </td>
+                <td><input type="text" class="field-full" id="jaakaapiHuomio" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Liesi</td>
+                <td>
+                    <span class="checkbox-group">
+                        <input type="checkbox" id="liesiOk" onclick="uncheckOther('liesiOk')"> OK
+                    </span>
+                    <span class="checkbox-group">
+                        <input type="checkbox" id="liesiEiOk" onclick="uncheckOther('liesiEiOk')"> Ei OK
+                    </span>
+                </td>
+                <td><input type="text" class="field-full" id="liesiHuomio" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Liesituuletin</td>
+                <td>
+                    <span class="checkbox-group">
+                        <input type="checkbox" id="tuulettinOk" onclick="uncheckOther('tuulettinOk')"> OK
+                    </span>
+                    <span class="checkbox-group">
+                        <input type="checkbox" id="tuulettinEiOk" onclick="uncheckOther('tuulettinEiOk')"> Ei OK
+                    </span>
+                </td>
+                <td><input type="text" class="field-full" id="tuulettinHuomio" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Astianpesukone</td>
+                <td>
+                    <span class="checkbox-group">
+                        <input type="checkbox" id="astianpesukoneOk" onclick="uncheckOther('astianpesukoneOk')"> OK
+                    </span>
+                    <span class="checkbox-group">
+                        <input type="checkbox" id="astianpesukoneEiOk" onclick="uncheckOther('astianpesukoneEiOk')"> Ei OK
+                    </span>
+                </td>
+                <td><input type="text" class="field-full" id="astianpesukoneHuomio" placeholder=""></td>
+            </tr>
+            <tr>
+                <td>Sähkökiuas</td>
+                <td>
+                    <span class="checkbox-group">
+                        <input type="checkbox" id="kiuasOk" onclick="uncheckOther('kiuasOk')"> OK
+                    </span>
+                    <span class="checkbox-group">
+                        <input type="checkbox" id="kiuasEiOk" onclick="uncheckOther('kiuasEiOk')"> Ei OK
+                    </span>
+                </td>
+                <td><input type="text" class="field-full" id="kiuasHuomio" placeholder=""></td>
+            </tr>
+        </table>
+
+        <h3>Muut huomiot</h3>
+        <textarea id="muutHuomiot" placeholder="Kirjoita tähän muut huomiot..."></textarea>
+
+        <h3>Allekirjoitukset</h3>
+        <p style="margin-top: 30px;">
+            Olemme yhdessä tarkastaneet huoneiston kunnon ja todenneet edellä mainitut seikat oikeiksi.
+        </p>
+
+        <table style="border: none; margin-top: 60px;">
+            <tr>
+                <td style="border: none; width: 50%; vertical-align: bottom;">
+                    <div class="signature-line">
+                        Vuokranantaja
+                    </div>
+                </td>
+                <td style="border: none; width: 50%; vertical-align: bottom;">
+                    <div class="signature-line">
+                        Vuokralainen
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        // Checkbox-funktio, jotta vain yksi voi olla valittuna kerrallaan ryhmässä
+        function uncheckOther(checkedId) {
+            const checkbox = document.getElementById(checkedId);
+
+            // Lemmikkien valinta
+            if (checkedId === 'lemmikitKielletty' || checkedId === 'lemmikitSallittu') {
+                if (checkbox.checked) {
+                    if (checkedId === 'lemmikitKielletty') {
+                        document.getElementById('lemmikitSallittu').checked = false;
+                    } else {
+                        document.getElementById('lemmikitKielletty').checked = false;
+                    }
+                }
+            }
+
+            // Katselmuksen valinta
+            if (checkedId === 'katselmusKylla' || checkedId === 'katselmusMyohemmin') {
+                if (checkbox.checked) {
+                    if (checkedId === 'katselmusKylla') {
+                        document.getElementById('katselmusMyohemmin').checked = false;
+                    } else {
+                        document.getElementById('katselmusKylla').checked = false;
+                    }
+                }
+            }
+
+            // Laitteiden toimivuus
+            const pairs = [
+                ['jaakaapiOk', 'jaakaapiEiOk'],
+                ['liesiOk', 'liesiEiOk'],
+                ['tuulettinOk', 'tuulettinEiOk'],
+                ['astianpesukoneOk', 'astianpesukoneEiOk'],
+                ['kiuasOk', 'kiuasEiOk']
+            ];
+
+            pairs.forEach(pair => {
+                if (checkedId === pair[0] || checkedId === pair[1]) {
+                    if (checkbox.checked) {
+                        const otherId = checkedId === pair[0] ? pair[1] : pair[0];
+                        document.getElementById(otherId).checked = false;
+                    }
+                }
+            });
+        }
+
+        // Tallenna tiedot selaimen local storageen
+        function saveTiedot() {
+            const data = {};
+            const inputs = document.querySelectorAll('input[type="text"], input[type="date"], textarea');
+            inputs.forEach(input => {
+                if (input.id) {
+                    data[input.id] = input.value;
+                }
+            });
+
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                if (checkbox.id) {
+                    data[checkbox.id] = checkbox.checked;
+                }
+            });
+
+            localStorage.setItem('vuokrasopimus_tiedot', JSON.stringify(data));
+            showMessage('Tiedot tallennettu!', 'success');
+        }
+
+        // Lataa tiedot local storagesta
+        function loadTiedot() {
+            const savedData = localStorage.getItem('vuokrasopimus_tiedot');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                Object.keys(data).forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            element.checked = data[id];
+                        } else {
+                            element.value = data[id];
+                        }
+                    }
+                });
+                showMessage('Tiedot ladattu!', 'success');
+            } else {
+                showMessage('Ei tallennettuja tietoja!', 'error');
+            }
+        }
+
+        // Tyhjennä kaikki kentät
+        function clearTiedot() {
+            if (confirm('Haluatko varmasti tyhjentää kaikki kentät?')) {
+                const inputs = document.querySelectorAll('input[type="text"], input[type="date"], textarea');
+                inputs.forEach(input => {
+                    input.value = '';
+                });
+
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+
+                showMessage('Kaikki kentät tyhjennetty!', 'success');
+            }
+        }
+
+        // Näytä viesti käyttäjälle
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('infoMessage');
+            messageDiv.textContent = message;
+            messageDiv.style.background = type === 'success' ? '#4CAF50' : '#f44336';
+            messageDiv.style.display = 'block';
+
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        // Automaattinen tallennusnappia
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lataa tallennettuja tietoja automaattisesti
+            const savedData = localStorage.getItem('vuokrasopimus_tiedot');
+            if (savedData) {
+                const shouldLoad = confirm('Haluatko ladata aiemmin tallennetut tiedot?');
+                if (shouldLoad) {
+                    loadTiedot();
+                }
+            }
+
+            // Kopioi vuokranantajan nimi selvennyskenttään automaattisesti
+            document.getElementById('vuokranantajaNimi')?.addEventListener('blur', function() {
+                const selvennysField = document.getElementById('vuokranantajaSelvennys');
+                if (selvennysField && !selvennysField.value) {
+                    selvennysField.value = this.value;
+                }
+            });
+
+            // Kopioi vuokralaisen nimi selvennyskenttään automaattisesti
+            document.getElementById('vuokralainen1Nimi')?.addEventListener('blur', function() {
+                const selvennysField = document.getElementById('vuokralainen1Selvennys');
+                if (selvennysField && !selvennysField.value) {
+                    selvennysField.value = this.value;
+                }
+            });
+
+            document.getElementById('vuokralainen2Nimi')?.addEventListener('blur', function() {
+                const selvennysField = document.getElementById('vuokralainen2Selvennys');
+                if (selvennysField && !selvennysField.value) {
+                    selvennysField.value = this.value;
+                }
+            });
+        });
+
+        // Varoitus ennen poistumista, jos tietoja on syötetty
+        window.addEventListener('beforeunload', function(e) {
+            const inputs = document.querySelectorAll('input[type="text"], textarea');
+            let hasData = false;
+            inputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    hasData = true;
+                }
+            });
+
+            if (hasData) {
+                e.preventDefault();
+                e.returnValue = 'Olet syöttänyt tietoja. Haluatko varmasti poistua tallentamatta?';
+            }
+        });
+    </script>
+</body>
+</html>
