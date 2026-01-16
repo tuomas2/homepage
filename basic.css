@@ -419,6 +419,105 @@ a:hover {
 }
 
 /* ================================================
+   PUBLICATIONS PAGE
+   ================================================ */
+
+.page-header {
+  padding: var(--space-xl) 0 var(--space-lg);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.back-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+  transition: color var(--duration) var(--ease-out);
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.publications-content {
+  max-width: 800px;
+}
+
+.pub-section {
+  margin-bottom: var(--space-xl);
+}
+
+.pub-section h2 {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-xs);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.pub-list {
+  list-style: none;
+  counter-reset: pub-counter;
+}
+
+.pub-list li {
+  position: relative;
+  counter-increment: pub-counter;
+  padding: var(--space-md) 0 var(--space-md) 2.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.pub-list li:last-child {
+  border-bottom: none;
+}
+
+.pub-list li::before {
+  content: counter(pub-counter);
+  position: absolute;
+  left: 0;
+  top: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.pub-title {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin-bottom: var(--space-xs);
+}
+
+.pub-title a {
+  color: var(--text-primary);
+}
+
+.pub-title a:hover {
+  color: var(--accent);
+}
+
+.pub-meta {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ================================================
    PRINT STYLES
    ================================================ */
 
