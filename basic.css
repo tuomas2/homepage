@@ -1,53 +1,442 @@
+/* ================================================
+   TUOMAS AIRAKSINEN - PERSONAL HOMEPAGE
+   Dark Modern Editorial Design
+   ================================================ */
+
+:root {
+  /* Core palette */
+  --bg-deep: #09090b;
+  --bg-surface: #111113;
+  --bg-elevated: #18181b;
+  --bg-hover: #1f1f23;
+
+  /* Text hierarchy */
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  /* Accent - Electric Cyan */
+  --accent: #22d3ee;
+  --accent-dim: rgba(34, 211, 238, 0.15);
+  --accent-glow: rgba(34, 211, 238, 0.4);
+
+  /* Borders & Lines */
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-visible: rgba(255, 255, 255, 0.12);
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+
+  /* Typography */
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration: 0.3s;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  background: var(--bg-deep);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Noise texture overlay */
+.noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+/* ================================================
+   HERO SECTION
+   ================================================ */
+
+.hero {
+  padding: var(--space-2xl) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.title-block {
+  max-width: 600px;
+}
+
+.label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 4px;
+  margin-bottom: var(--space-md);
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.tagline {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* Portrait */
+.portrait-wrapper {
+  position: relative;
+}
+
+.portrait-frame {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-visible);
+}
+
+.portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%);
+  transition: filter var(--duration) var(--ease-out);
+}
+
+.portrait-frame:hover .portrait {
+  filter: grayscale(0%);
+}
+
+.portrait-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 70%);
+  opacity: 0.3;
+  z-index: -1;
+  filter: blur(40px);
+}
+
+/* ================================================
+   INFO GRID
+   ================================================ */
+
+.content {
+  padding: var(--space-xl) 0;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+/* Cards */
+.card {
+  position: relative;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: var(--space-lg);
+  transition: all var(--duration) var(--ease-out);
+}
+
+.card:hover {
+  background: var(--bg-elevated);
+  border-color: var(--border-visible);
+  transform: translateY(-2px);
+}
+
+.card-marker {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.card h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+  letter-spacing: -0.01em;
+}
+
+.card p {
+  color: var(--text-secondary);
+}
+
+.card .subtle {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-top: var(--space-xs);
+}
+
+/* Links */
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--duration) var(--ease-out);
+}
+
+a:hover {
+  color: var(--text-primary);
+}
+
+/* Research List */
+.research-list {
+  list-style: none;
+}
+
+.research-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) 0;
+  color: var(--text-secondary);
+}
+
+.bullet {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Documents */
+.doc-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.doc-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.doc-group:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.doc-label {
+  color: var(--text-secondary);
+}
+
+.doc-buttons {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-visible);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 6px;
+  transition: all var(--duration) var(--ease-out);
+}
+
+.btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg-deep);
+}
+
+/* Contact Grid */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  transition: all var(--duration) var(--ease-out);
+}
+
+.contact-link:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.contact-link:hover .contact-icon {
+  background: var(--accent);
+  color: var(--bg-deep);
+}
+
+.contact-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  background: var(--bg-hover);
+  border-radius: 6px;
+  color: var(--text-muted);
+  transition: all var(--duration) var(--ease-out);
+}
+
+/* ================================================
+   FOOTER
+   ================================================ */
+
+.footer {
+  padding: var(--space-lg) 0;
+  text-align: center;
+}
+
+.footer-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 0 auto var(--space-md);
+  opacity: 0.5;
+}
+
+.footer p {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+/* ================================================
+   RESPONSIVE
+   ================================================ */
+
+@media (max-width: 900px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .portrait-wrapper {
+    order: -1;
+    margin: 0 auto;
+  }
+
+  .portrait-frame {
+    width: 200px;
+    height: 200px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: var(--space-md);
+  }
+
+  .hero {
+    padding: var(--space-xl) 0;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================================
+   PRINT STYLES
+   ================================================ */
+
 @media print {
-  .noprint { display: none; }
+  .noise { display: none; }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  .card {
+    border: 1px solid #ccc;
+    background: white;
+  }
+
+  a {
+    color: black;
+    text-decoration: underline;
+  }
 }
-
-BODY { background : black none;
-          color : white; 
-	margin-left:1.5em;
-	margin-right:0.7em;
-    font-family: arial;
-    font-size: 90%;
-    }
-
-img.naama {
-    height: 400px;
-}
-
-A:link, strong a:link, em a:link, cite a:link,
- a:link strong, a:link em, a:link cite
- { color : #95c365; background : transparent none; }
-
-A:visited, strong a:visited, em a:visited, cite a:visited,
- a:visited strong, a:visited em, a:visited cite
- { color : #8ad194; background : transparent none; }
-A:hover, strong a:hover, em a:hover, cite a:hover,
- a:hover strong, a:hover em, a:hover cite
- { color : #84e3ff; background : transparent none; }
-
-A:active, strong a:active, em a:active, cite a:active,
- a:active strong, a:active em, a:active cite
- { color : red; }
-
-h1, h2, h3, h4 { background : transparent none; bold; color: #79a83f;}
-  
-H1              { font-size: 150%; }
-H2              { font-size: 130%; } /* margin-left : 1em ;}*/
-H3              { font-size: 110%; } /*margin-left: 1em;} */
-H4              { font-size: 100%; bold; italic; }
-
-blockquote H1              { font-size: 150%; }
-blockquote H2              { font-size: 130%; }
-blockquote H3              { font-size: 110%; }
-blockquote H4              { font-size: 100%; color: green; italic }
-
-P {  font-size: 110%; color: white; background:black none ;margin-right: 5%; margin-left:0.9em;}
-table {  font-size: 110%; color: white; background:black none ;margin-right: 5%; margin-left:0.9em; width: 95%;}
-div.P {  font-size: 110%; color: white; background:black none ;margin-right: 5%; margin-left:0.9em;}
-/*div.linkbar */
-/*
-div.picheader 
-{
-	margin-left:0.7em;
-}
-*/
