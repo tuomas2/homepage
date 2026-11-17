@@ -353,6 +353,38 @@ a:hover {
   transition: all var(--duration) var(--ease-out);
 }
 
+/* Image link card (e.g. RAUHA Crafts) */
+.card-link {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 360px);
+  gap: var(--space-lg);
+  align-items: center;
+  color: inherit;
+}
+
+.card-link:hover {
+  color: inherit;
+}
+
+.card-link .label {
+  margin-bottom: var(--space-sm);
+}
+
+.card-link-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border-visible);
+  transition: transform var(--duration) var(--ease-out), box-shadow var(--duration) var(--ease-out);
+}
+
+.card-link:hover .card-link-image {
+  transform: scale(1.02);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
 /* ================================================
    FOOTER
    ================================================ */
@@ -397,6 +429,11 @@ a:hover {
 
   .info-grid {
     grid-template-columns: 1fr;
+  }
+
+  .card-link {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
   }
 }
 
